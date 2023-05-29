@@ -39,7 +39,7 @@ setting_list* get_settings(int nargs, char* args[]) {
 			if(success != 1) // if scanning for a number didnt succeed 
 				success = sscanf(next_argument, "%s", &setting->value);
 			if(success != 1) // if scanning for a string didnt succeed
-				printf("error lol!");
+				printf("error: if you got this error good job lol!\n");
 		}
 	};
 	return list;
@@ -65,7 +65,7 @@ char get_brightness() {
 	f_brightness = fopen("/sys/class/backlight/nvidia_wmi_ec_backlight/brightness","r");
 
 	if(!f_brightness) {
-		printf("broken as FUCK");
+		printf("error: cannot find brightness file\n");
 		return -1;
 	}
 	char* c_brightness = malloc(b_read_size);
@@ -80,14 +80,14 @@ int set_brightness(char new_brightness) {
 	f_brightness = fopen("/sys/class/backlight/nvidia_wmi_ec_backlight/brightness","w+");
 
 	if(!f_brightness) {
-		printf("broken as FUCK");
+		printf("error: cannot find brightness file\n");
 		return -1;
 	}	
 
 	char* c_new_brightness = malloc(4);
 	sprintf(c_new_brightness,"%d",new_brightness);
 	fputs(c_new_brightness,f_brightness);
-	//fclose(f_brightness); -- causes a FUNKY ass segmentation fault
+	//fclose(f_brightness); -- causes a FUNKY segmentation fault
 	return 1;	
 }
 
@@ -96,7 +96,7 @@ int change_brightness(char change) {
 	char old_brightness=get_brightness();
 	char new_brightness = old_brightness+change;
 	if(new_brightness > max_brightness || new_brightness < 0) {
-		printf("broken ass shit bro stop trying to make the brightness higher than you know you can");
+		printf("error: attempt to set out of bounds brightness\n");
 		return -1;
 	};
 	set_brightness(old_brightness+change);
