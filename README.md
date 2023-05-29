@@ -3,9 +3,9 @@ This is a program I use with binds in i3 to modify my screen brightness. It didn
 
 
 # how to use
-there are three arguments you can use 
--i [number?] to increase by a number amount, or by one if left blank
--d [number?] to decrease by a number amount, or by one if left blank
+there are three arguments you can use <br>
+-i [number?] to increase by a number amount, or by one if left blank<br>
+-d [number?] to decrease by a number amount, or by one if left blank<br>
 -s [number] to set to a particular number, if left blank, will just set brightness to 1
 
 
